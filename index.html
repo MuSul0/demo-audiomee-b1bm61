@@ -1,0 +1,1875 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audiomee - Hörakustik in Hamburg</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1a365d;
+            --primary-dark: #0f172a;
+            --accent: #d4a853;
+            --accent-light: #e5c273;
+            --background: #ffffff;
+            --background-light: #f8fafc;
+            --text: #1f2937;
+            --text-light: #6b7280;
+            --border-radius: 12px;
+            --border-radius-lg: 24px;
+            --box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --box-shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        @media (max-width: 768px) {
+            section {
+                padding: 60px 0;
+            }
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 16px 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+
+        header.scrolled {
+            padding: 12px 0;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--text);
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background-color: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 20px;
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .cta-button {
+            background-color: var(--accent);
+            color: white;
+            padding: 12px 24px;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+        }
+
+        .cta-button:hover {
+            background-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .hamburger-menu {
+            display: none;
+            cursor: pointer;
+            font-size: 24px;
+        }
+
+        /* Mobile Menu */
+        .mobile-nav {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: var(--background);
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 32px;
+            z-index: 999;
+            transform: translateX(100%);
+            transition: var(--transition);
+        }
+
+        .mobile-nav.active {
+            transform: translateX(0);
+        }
+
+        .mobile-nav a {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--text);
+            text-decoration: none;
+        }
+
+        .mobile-nav-close {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            font-size: 32px;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, rgba(26, 54, 93, 0.8), rgba(13, 152, 136, 0.8)), url('https://picsum.photos/1920/1080?random=100');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(26, 54, 93, 0.9), rgba(13, 152, 136, 0.9));
+            animation: gradientShift 15s ease infinite;
+            background-size: 400% 400%;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 20px;
+            margin-bottom: 32px;
+            opacity: 0.9;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background-color: var(--accent);
+            color: white;
+            padding: 16px 32px;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            display: inline-block;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: white;
+            padding: 16px 32px;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            display: inline-block;
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background-color: white;
+            color: var(--primary);
+        }
+
+        .trust-badges {
+            display: flex;
+            gap: 32px;
+            margin-top: 48px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .badge-icon {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+        }
+
+        .badge-text {
+            font-weight: 500;
+        }
+
+        /* Section Title */
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: var(--primary);
+        }
+
+        .section-title p {
+            font-size: 18px;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* About Section */
+        .about {
+            background-color: var(--background-light);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .about-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--box-shadow-lg);
+        }
+
+        .about-text h3 {
+            font-size: 28px;
+            margin-bottom: 24px;
+            color: var(--primary);
+        }
+
+        .about-text p {
+            margin-bottom: 24px;
+            color: var(--text-light);
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 32px;
+            margin-top: 48px;
+        }
+
+        .value-card {
+            text-align: center;
+            padding: 24px;
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+        }
+
+        .value-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--box-shadow-lg);
+        }
+
+        .value-icon {
+            width: 60px;
+            height: 60px;
+            background-color: var(--background-light);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 16px;
+            font-size: 24px;
+            color: var(--accent);
+        }
+
+        .value-card h4 {
+            font-size: 20px;
+            margin-bottom: 12px;
+            color: var(--primary);
+        }
+
+        /* Services Section */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+
+        .service-card {
+            background-color: white;
+            padding: 32px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+            text-align: center;
+        }
+
+        .service-card:hover {
+            transform: scale(1.05);
+            box-shadow: var(--box-shadow-lg);
+        }
+
+        .service-icon {
+            width: 80px;
+            height: 80px;
+            background-color: var(--background-light);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 24px;
+            font-size: 32px;
+            color: var(--accent);
+        }
+
+        .service-card h3 {
+            font-size: 24px;
+            margin-bottom: 16px;
+            color: var(--primary);
+        }
+
+        .service-card p {
+            color: var(--text-light);
+        }
+
+        /* Process Section */
+        .process {
+            background-color: var(--background-light);
+        }
+
+        .process-timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .timeline-line {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--accent);
+            z-index: 1;
+        }
+
+        .process-step {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 48px;
+        }
+
+        .step-content {
+            width: 45%;
+            padding: 32px;
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            position: relative;
+            z-index: 2;
+        }
+
+        .step-content::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: -20px;
+            width: 20px;
+            height: 20px;
+            background-color: var(--accent);
+            border-radius: 50%;
+            z-index: 3;
+        }
+
+        .step-content:nth-child(odd) {
+            margin-left: auto;
+        }
+
+        .step-content:nth-child(odd)::before {
+            left: -20px;
+            right: auto;
+        }
+
+        .step-number {
+            width: 80px;
+            height: 80px;
+            background-color: var(--accent);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 32px;
+            font-weight: 700;
+            margin: 0 auto 24px;
+        }
+
+        .step-content h3 {
+            font-size: 24px;
+            margin-bottom: 16px;
+            color: var(--primary);
+        }
+
+        .step-content p {
+            color: var(--text-light);
+        }
+
+        /* Team Section */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 32px;
+        }
+
+        .team-member {
+            text-align: center;
+            background-color: white;
+            padding: 24px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+        }
+
+        .team-member:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--box-shadow-lg);
+        }
+
+        .member-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: var(--border-radius);
+            margin-bottom: 24px;
+        }
+
+        .member-name {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--primary);
+        }
+
+        .member-position {
+            font-size: 16px;
+            color: var(--accent);
+            margin-bottom: 16px;
+        }
+
+        .member-bio {
+            color: var(--text-light);
+            margin-bottom: 24px;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background-color: var(--background-light);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--text);
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background-color: var(--accent);
+            color: white;
+        }
+
+        /* Pricing Section */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+
+        .pricing-card {
+            background-color: white;
+            padding: 32px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            text-align: center;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .pricing-card.popular {
+            border: 2px solid var(--accent);
+            transform: scale(1.05);
+        }
+
+        .pricing-card.popular::before {
+            content: 'Beliebtestes Paket';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--accent);
+            color: white;
+            padding: 4px 16px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--box-shadow-lg);
+        }
+
+        .pricing-icon {
+            width: 80px;
+            height: 80px;
+            background-color: var(--background-light);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 24px;
+            font-size: 32px;
+            color: var(--accent);
+        }
+
+        .pricing-card h3 {
+            font-size: 24px;
+            margin-bottom: 16px;
+            color: var(--primary);
+        }
+
+        .price {
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .price-period {
+            font-size: 16px;
+            color: var(--text-light);
+            margin-bottom: 24px;
+        }
+
+        .features-list {
+            list-style: none;
+            margin-bottom: 32px;
+        }
+
+        .features-list li {
+            padding: 8px 0;
+            color: var(--text-light);
+        }
+
+        .features-list li::before {
+            content: '✓';
+            color: var(--accent);
+            font-weight: bold;
+            margin-right: 8px;
+        }
+
+        /* Gallery Section */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .gallery-item {
+            height: 250px;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+            box-shadow: var(--box-shadow-lg);
+        }
+
+        .gallery-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .gallery-item:hover .gallery-image {
+            transform: scale(1.1);
+        }
+
+        /* Testimonials Section */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 32px;
+        }
+
+        .testimonial-card {
+            background-color: white;
+            padding: 32px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            position: relative;
+        }
+
+        .testimonial-card::before {
+            content: '“';
+            font-size: 80px;
+            color: var(--accent);
+            opacity: 0.2;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 24px;
+            color: var(--text-light);
+            position: relative;
+            z-index: 1;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .author-image {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .author-info h4 {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .author-info p {
+            font-size: 14px;
+            color: var(--text-light);
+        }
+
+        .rating {
+            color: var(--accent);
+            margin-bottom: 16px;
+        }
+
+        /* FAQ Section */
+        .faq-item {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            margin-bottom: 16px;
+        }
+
+        .faq-question {
+            width: 100%;
+            padding: 24px;
+            text-align: left;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--primary);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-question:hover {
+            color: var(--accent);
+        }
+
+        .faq-answer {
+            padding: 0 24px 24px;
+            color: var(--text-light);
+            max-height: 0;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 200px;
+            padding-bottom: 24px;
+        }
+
+        .faq-icon {
+            transition: var(--transition);
+        }
+
+        .faq-item.active .faq-icon {
+            transform: rotate(180deg);
+        }
+
+        /* Contact Section */
+        .contact {
+            background-color: var(--background-light);
+        }
+
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+        }
+
+        .contact-form {
+            background-color: white;
+            padding: 32px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--primary);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #e5e7eb;
+            border-radius: var(--border-radius);
+            font-family: inherit;
+            font-size: 16px;
+            transition: var(--transition);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(212, 168, 83, 0.1);
+        }
+
+        .form-group textarea {
+            height: 150px;
+            resize: vertical;
+        }
+
+        .contact-info h3 {
+            font-size: 28px;
+            margin-bottom: 24px;
+            color: var(--primary);
+        }
+
+        .contact-info p {
+            margin-bottom: 16px;
+            color: var(--text-light);
+        }
+
+        .contact-info i {
+            color: var(--accent);
+            margin-right: 8px;
+            width: 20px;
+            text-align: center;
+        }
+
+        .map-placeholder {
+            width: 100%;
+            height: 300px;
+            background-color: #e5e7eb;
+            border-radius: var(--border-radius);
+            margin-top: 24px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--text-light);
+        }
+
+        /* CTA Banner */
+        .cta-banner {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            padding: 60px 0;
+            margin: 80px 0;
+            border-radius: var(--border-radius-lg);
+        }
+
+        .cta-banner-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .cta-banner h2 {
+            font-size: 32px;
+            max-width: 600px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary-dark);
+            color: white;
+            padding: 60px 0 20px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 48px;
+            margin-bottom: 48px;
+        }
+
+        .footer-column h3 {
+            font-size: 20px;
+            margin-bottom: 24px;
+            color: white;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-column ul li a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-column ul li a:hover {
+            color: var(--accent);
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 16px;
+            margin-top: 24px;
+        }
+
+        .footer-social a {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            transition: var(--transition);
+        }
+
+        .footer-social a:hover {
+            background-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 24px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-light);
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--accent);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            z-index: 999;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .services-grid,
+            .pricing-grid,
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .team-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .process-step {
+                flex-direction: column;
+            }
+
+            .step-content {
+                width: 100%;
+                margin-bottom: 24px;
+            }
+
+            .step-content::before {
+                left: 50% !important;
+                right: auto !important;
+                transform: translateX(-50%);
+            }
+
+            .step-content:nth-child(odd) {
+                margin-left: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hamburger-menu {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero p {
+                font-size: 18px;
+            }
+
+            .about-content,
+            .contact-content {
+                grid-template-columns: 1fr;
+            }
+
+            .services-grid,
+            .pricing-grid,
+            .gallery-grid,
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .values-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-banner-content {
+                flex-direction: column;
+                gap: 24px;
+                text-align: center;
+            }
+
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 28px;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var forms = document.querySelectorAll('form');
+  forms.forEach(function(form) {
+    if (form.querySelector('input[type="email"]') && form.querySelector('textarea')) {
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        var fd = new FormData(form);
+        var data = {
+          name: fd.get('name') || fd.get('Name') || '',
+          email: fd.get('email') || fd.get('Email') || '',
+          phone: fd.get('phone') || fd.get('telefon') || '',
+          message: fd.get('message') || fd.get('nachricht') || '',
+          firma: 'Audiomee',
+          demo_url: window.location.href
+        };
+        var btn = form.querySelector('button[type="submit"], input[type="submit"]');
+        if (btn) btn.disabled = true;
+        fetch('https://DEINE-N8N-URL/webhook/kontakt-formular', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify(data)
+        })
+        .then(function(r) { return r.json(); })
+        .then(function(res) {
+          alert(res.success ? 'Danke! Wir melden uns.' : 'Fehler: ' + res.message);
+          if (res.success) form.reset();
+        })
+        .catch(function() { alert('Fehler. Bitte info@wzvision.de kontaktieren.'); })
+        .finally(function() { if (btn) btn.disabled = false; });
+      });
+    }
+  });
+});
+</script>
+</head>
+<body>
+    <header id="header">
+        <div class="container navbar">
+            <a href="#" class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-headphones"></i>
+                </div>
+                <span class="logo-text">Audiomee</span>
+            </a>
+            <nav class="nav-links">
+                <a href="#hero">Start</a>
+                <a href="#services">Leistungen</a>
+                <a href="#about">Über uns</a>
+                <a href="#team">Team</a>
+                <a href="#pricing">Preise</a>
+                <a href="#gallery">Galerie</a>
+                <a href="#faq">FAQ</a>
+                <a href="#contact">Kontakt</a>
+                <a href="#contact" class="cta-button">Termin/Anfrage</a>
+            </nav>
+            <div class="hamburger-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <input type="checkbox" id="mobile-menu-toggle">
+    <div class="mobile-nav">
+        <div class="mobile-nav-close">
+            <i class="fas fa-times"></i>
+        </div>
+        <a href="#hero">Start</a>
+        <a href="#services">Leistungen</a>
+        <a href="#about">Über uns</a>
+        <a href="#team">Team</a>
+        <a href="#pricing">Preise</a>
+        <a href="#gallery">Galerie</a>
+        <a href="#faq">FAQ</a>
+        <a href="#contact">Kontakt</a>
+        <a href="#contact" class="cta-button">Termin/Anfrage</a>
+    </div>
+
+    <section id="hero" class="hero">
+        <div class="container hero-content">
+            <h1>Willkommen bei Audiomee - Ihre Experten für Hörakustik in Hamburg</h1>
+            <p>Entdecken Sie die Welt des besseren Hörens mit individuellen Lösungen und modernster Technologie. Wir sind für Sie da.</p>
+            <div class="hero-buttons">
+                <a href="#contact" class="btn-primary">Jetzt Termin vereinbaren</a>
+                <a href="#services" class="btn-secondary">Unsere Leistungen</a>
+            </div>
+            <div class="trust-badges">
+                <div class="badge">
+                    <div class="badge-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <span class="badge-text">20+ Jahre Erfahrung</span>
+                </div>
+                <div class="badge">
+                    <div class="badge-icon">
+                        <i class="fas fa-smile"></i>
+                    </div>
+                    <span class="badge-text">5000+ zufriedene Kunden</span>
+                </div>
+                <div class="badge">
+                    <div class="badge-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <span class="badge-text">4.9/5 Bewertungen</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>Über Audiomee</h2>
+                <p>Erfahren Sie mehr über unsere Philosophie und wie wir Ihnen zu besserem Hören verhelfen können.</p>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Ihre Hörakustiker in Hamburg</h3>
+                    <p>Bei Audiomee stehen Sie als Mensch im Mittelpunkt. Seit über 20 Jahren helfen wir Menschen in Hamburg und Umgebung, die Freude am Hören zurückzugewinnen. Mit modernster Technik, individueller Beratung und langjähriger Erfahrung finden wir für jeden die perfekte Lösung.</p>
+                    <p>Unser Team aus zertifizierten Hörakustikern nimmt sich Zeit für Ihre Bedürfnisse und entwickelt gemeinsam mit Ihnen ein Konzept, das perfekt zu Ihrem Lebensstil passt. Ob diskrete Hörgeräte, Tinnitus-Beratung oder Gehörschutz - wir sind Ihr Partner für alle Fragen rund um das Hören.</p>
+                    <div class="values-grid">
+                        <div class="value-card">
+                            <div class="value-icon">
+                                <i class="fas fa-gem"></i>
+                            </div>
+                            <h4>Qualität</h4>
+                            <p>Premium-Hörlösungen von führenden Herstellern für beste Klangqualität.</p>
+                        </div>
+                        <div class="value-card">
+                            <div class="value-icon">
+                                <i class="fas fa-handshake"></i>
+                            </div>
+                            <h4>Zuverlässigkeit</h4>
+                            <p>Langfristige Betreuung und Service, auf den Sie sich verlassen können.</p>
+                        </div>
+                        <div class="value-card">
+                            <div class="value-icon">
+                                <i class="fas fa-lightbulb"></i>
+                            </div>
+                            <h4>Innovation</h4>
+                            <p>Ständige Weiterbildung und modernste Technologie für optimale Ergebnisse.</p>
+                        </div>
+                        <div class="value-card">
+                            <div class="value-icon">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                            <h4>Kundenzufriedenheit</h4>
+                            <p>Ihre Zufriedenheit ist unser oberstes Ziel - von der Beratung bis zur Nachsorge.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-image-container">
+                    <img src="https://picsum.photos/600/400?random=1" alt="Audiomee Team" class="about-image">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services">
+        <div class="container">
+            <div class="section-title">
+                <h2>Unsere Leistungen</h2>
+                <p>Individuelle Lösungen für Ihr bestes Hörerlebnis - von der Beratung bis zur Nachsorge.</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-headphones"></i>
+                    </div>
+                    <h3>Hörgeräte-Anpassung</h3>
+                    <p>Individuelle Anpassung modernster Hörsysteme an Ihre Bedürfnisse und Ihr Gehör für optimales Hörerlebnis.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-ear"></i>
+                    </div>
+                    <h3>Hörtests</h3>
+                    <p>Umfassende Hörtests mit modernster Technik zur genauen Bestimmung Ihres Hörvermögens und individueller Bedürfnisse.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-volume-up"></i>
+                    </div>
+                    <h3>Tinnitus-Beratung</h3>
+                    <p>Individuelle Beratung und Therapieansätze bei Tinnitus zur Linderung Ihrer Beschwerden und Verbesserung der Lebensqualität.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Gehörschutz</h3>
+                    <p>Maßgefertigter Gehörschutz für verschiedene Anwendungen wie Musik, Arbeit oder Schlaf für optimalen Schutz.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-cog"></i>
+                    </div>
+                    <h3>Reparatur-Service</h3>
+                    <p>Schnelle und professionelle Reparatur aller Hörsysteme und Hörgeräte für langfristige Funktionalität.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3>Nachsorge</h3>
+                    <p>Regelmäßige Kontrollen und Anpassungen für langfristige Zufriedenheit mit Ihrem Hörsystem.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="cta-banner">
+        <div class="container cta-banner-content">
+            <h2>Bereit für besseres Hören? Vereinbaren Sie jetzt einen unverbindlichen Beratungstermin!</h2>
+            <a href="#contact" class="btn-primary">Termin vereinbaren</a>
+        </div>
+    </div>
+
+    <section id="process">
+        <div class="container">
+            <div class="section-title">
+                <h2>Unser Prozess</h2>
+                <p>So führen wir Sie Schritt für Schritt zu besserem Hören und mehr Lebensqualität.</p>
+            </div>
+            <div class="process-timeline">
+                <div class="timeline-line"></div>
+                <div class="process-step">
+                    <div class="step-content">
+                        <div class="step-number">1</div>
+                        <h3>Erstgespräch & Beratung</h3>
+                        <p>In einem ausführlichen Gespräch analysieren wir Ihre Hörsituation und klären Ihre individuellen Bedürfnisse.</p>
+                    </div>
+                </div>
+                <div class="process-step">
+                    <div class="step-content">
+                        <div class="step-number">2</div>
+                        <h3>Hörtest & Analyse</h3>
+                        <p>Mit modernster Technik führen wir präzise Hörtests durch, um Ihr Hörvermögen genau zu bestimmen.</p>
+                    </div>
+                </div>
+                <div class="process-step">
+                    <div class="step-content">
+                        <div class="step-number">3</div>
+                        <h3>Individuelle Anpassung</h3>
+                        <p>Wir passen Ihr Hörsystem exakt an Ihre Bedürfnisse an und nehmen alle notwendigen Einstellungen vor.</p>
+                    </div>
+                </div>
+                <div class="process-step">
+                    <div class="step-content">
+                        <div class="step-number">4</div>
+                        <h3>Nachsorge & Betreuung</h3>
+                        <p>Auch nach der Anpassung stehen wir Ihnen mit regelmäßigen Kontrollen und Anpassungen zur Seite.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="team">
+        <div class="container">
+            <div class="section-title">
+                <h2>Unser Team</h2>
+                <p>Erfahrene Hörakustiker, die sich mit Leidenschaft für Ihr bestes Hörerlebnis einsetzen.</p>
+            </div>
+            <div class="team-grid">
+                <div class="team-member">
+                    <img src="https://picsum.photos/300/400?random=2" alt="Dr. Anna Schmidt" class="member-image">
+                    <h3 class="member-name">Dr. Anna Schmidt</h3>
+                    <p class="member-position">Leitende Hörakustikerin</p>
+                    <p class="member-bio">Mit über 15 Jahren Erfahrung in der Hörakustik leitet Anna unser Team und sorgt für höchste Qualität.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <img src="https://picsum.photos/300/400?random=3" alt="Markus Bauer" class="member-image">
+                    <h3 class="member-name">Markus Bauer</h3>
+                    <p class="member-position">Hörgeräte-Akustiker</p>
+                    <p class="member-bio">Markus ist unser Experte für moderne Hörgerätetechnologie und individuelle Anpassungen.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <img src="https://picsum.photos/300/400?random=4" alt="Sarah Müller" class="member-image">
+                    <h3 class="member-name">Sarah Müller</h3>
+                    <p class="member-position">Tinnitus-Beraterin</p>
+                    <p class="member-bio">Sarah unterstützt Sie mit individuellen Therapieansätzen bei Tinnitus und Hörstörungen.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <img src="https://picsum.photos/300/400?random=5" alt="Thomas Weber" class="member-image">
+                    <h3 class="member-name">Thomas Weber</h3>
+                    <p class="member-position">Service-Techniker</p>
+                    <p class="member-bio">Thomas kümmert sich um Wartung und Reparatur Ihrer Hörsysteme für langfristige Zufriedenheit.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pricing">
+        <div class="container">
+            <div class="section-title">
+                <h2>Unsere Preise</h2>
+                <p>Transparente Preise für beste Hörlösungen - wir finden das passende Paket für Sie.</p>
+            </div>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <div class="pricing-icon">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <h3>Basis-Paket</h3>
+                    <div class="price">€ 990</div>
+                    <div class="price-period">pro Ohr</div>
+                    <ul class="features-list">
+                        <li>Grundlegender Hörtest</li>
+                        <li>Einfache Hörgeräte</li>
+                        <li>Standard-Anpassung</li>
+                        <li>6 Monate Nachsorge</li>
+                        <li>1 Jahr Garantie</li>
+                    </ul>
+                    <a href="#contact" class="btn-primary">Beratungstermin</a>
+                </div>
+                <div class="pricing-card popular">
+                    <div class="pricing-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h3>Premium-Paket</h3>
+                    <div class="price">€ 1.890</div>
+                    <div class="price-period">pro Ohr</div>
+                    <ul class="features-list">
+                        <li>Umfassender Hörtest</li>
+                        <li>Premium-Hörgeräte</li>
+                        <li>Individuelle Anpassung</li>
+                        <li>12 Monate Nachsorge</li>
+                        <li>2 Jahre Garantie</li>
+                        <li>Tinnitus-Beratung</li>
+                    </ul>
+                    <a href="#contact" class="btn-primary">Beliebtestes Paket</a>
+                </div>
+                <div class="pricing-card">
+                    <div class="pricing-icon">
+                        <i class="fas fa-diamond"></i>
+                    </div>
+                    <h3>Exklusiv-Paket</h3>
+                    <div class="price">€ 2.790</div>
+                    <div class="price-period">pro Ohr</div>
+                    <ul class="features-list">
+                        <li>Komplette Höranalyse</li>
+                        <li>Top-Hörgeräte</li>
+                        <li>Feinabstimmung</li>
+                        <li>24 Monate Nachsorge</li>
+                        <li>3 Jahre Garantie</li>
+                        <li>Gehörschutz inklusive</li>
+                        <li>Priorisierter Service</li>
+                    </ul>
+                    <a href="#contact" class="btn-primary">Beratungstermin</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="gallery">
+        <div class="container">
+            <div class="section-title">
+                <h2>Galerie</h2>
+                <p>Einblicke in unsere Praxis und die Welt der Hörakustik in Hamburg.</p>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="https://picsum.photos/600/400?random=6" alt="Praxisraum" class="gallery-image">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://picsum.photos/600/400?random=7" alt="Hörtest" class="gallery-image">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://picsum.photos/600/400?random=8" alt="Teamarbeit" class="gallery-image">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://picsum.photos/600/400?random=9" alt="Moderne Technik" class="gallery-image">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://picsum.photos/600/400?random=10" alt="Beratung" class="gallery-image">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://picsum.photos/600/400?random=11" alt="Zufriedene Kunden" class="gallery-image">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="testimonials">
+        <div class="container">
+            <div class="section-title">
+                <h2>Kundenstimmen</h2>
+                <p>Erfahren Sie, was unsere Kunden über ihre Erfahrungen mit Audiomee sagen.</p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">Nach Jahren mit Hörproblemen habe ich endlich bei Audiomee die perfekte Lösung gefunden. Die Beratung war ausführlich und die Anpassung meines Hörgeräts hat mein Leben verändert. Ich kann wieder aktiv am Leben teilnehmen!</p>
+                    <div class="testimonial-author">
+                        <img src="https://picsum.photos/80/80?random=12" alt="Klaus Meier" class="author-image">
+                        <div class="author-info">
+                            <h4>Klaus Meier</h4>
+                            <p>Zufriedener Kunde</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">Die Tinnitus-Beratung bei Sarah Müller hat mir wirklich geholfen, besser mit meinen Beschwerden umzugehen. Endlich habe ich wieder Hoffnung und Strategien, um mein Leben zu verbessern. Vielen Dank!</p>
+                    <div class="testimonial-author">
+                        <img src="https://picsum.photos/80/80?random=13" alt="Petra Schmidt" class="author-image">
+                        <div class="author-info">
+                            <h4>Petra Schmidt</h4>
+                            <p>Tinnitus-Patientin</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">Als Musiker war ich auf der Suche nach perfektem Gehörschutz. Bei Audiomee wurde ich bestens beraten und habe jetzt maßgefertigte Stöpsel, die meinen Ansprüchen perfekt gerecht werden. Absolut empfehlenswert!</p>
+                    <div class="testimonial-author">
+                        <img src="https://picsum.photos/80/80?random=14" alt="Lars Berger" class="author-image">
+                        <div class="author-info">
+                            <h4>Lars Berger</h4>
+                            <p>Musiker</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">Die Nachsorge bei Audiomee ist einfach hervorragend. Auch nach der Anpassung wird man nicht allein gelassen. Bei Fragen oder Problemen ist immer jemand da, der schnell und kompetent hilft. So sollte Service sein!</p>
+                    <div class="testimonial-author">
+                        <img src="https://picsum.photos/80/80?random=15" alt="Ute Hartmann" class="author-image">
+                        <div class="author-info">
+                            <h4>Ute Hartmann</h4>
+                            <p>Langzeit-Kundin</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="faq">
+        <div class="container">
+            <div class="section-title">
+                <h2>Häufige Fragen</h2>
+                <p>Antworten auf die wichtigsten Fragen rund um Hörgeräte und Hörakustik.</p>
+            </div>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <label for="faq-1" class="faq-question">
+                        Wie erkenne ich, ob ich ein Hörgerät brauche?
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </label>
+                    <input type="checkbox" id="faq-1" class="faq-toggle">
+                    <div class="faq-answer">
+                        <p>Anzeichen für Hörverlust können sein: Sie verstehen Gespräche in lauter Umgebung schlecht, müssen oft nachfragen, stellen den Fernseher lauter oder haben das Gefühl, dass andere nuscheln. Ein Hörtest bei uns gibt Ihnen Klarheit.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <label for="faq-2" class="faq-question">
+                        Wie lange dauert die Gewöhnung an ein Hörgerät?
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </label>
+                    <input type="checkbox" id="faq-2" class="faq-toggle">
+                    <div class="faq-answer">
+                        <p>Die Gewöhnungsphase ist individuell unterschiedlich und kann zwischen wenigen Wochen und einigen Monaten dauern. Wir begleiten Sie in dieser Phase mit regelmäßigen Anpassungen und Tipps für den Alltag.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <label for="faq-3" class="faq-question">
+                        Übernimmt die Krankenkasse die Kosten für Hörgeräte?
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </label>
+                    <input type="checkbox" id="faq-3" class="faq-toggle">
+                    <div class="faq-answer">
+                        <p>Ja, die gesetzlichen Krankenkassen übernehmen einen Festbetrag für die Versorgung mit Hörgeräten. Wir beraten Sie gerne über die genauen Leistungen und mögliche Zuschüsse.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <label for="faq-4" class="faq-question">
+                        Wie oft müssen Hörgeräte gewartet werden?
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </label>
+                    <input type="checkbox" id="faq-4" class="faq-toggle">
+                    <div class="faq-answer">
+                        <p>Wir empfehlen eine regelmäßige Wartung alle 6 Monate, um die Funktionalität und Hygiene Ihrer Hörgeräte zu gewährleisten. In unseren Service-Paketen ist dies bereits enthalten.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <label for="faq-5" class="faq-question">
+                        Kann man Hörgeräte auch unsichtbar tragen?
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </label>
+                    <input type="checkbox" id="faq-5" class="faq-toggle">
+                    <div class="faq-answer">
+                        <p>Ja, es gibt verschiedene diskrete und unsichtbare Hörlösungen. Dazu gehören z.B. Im-Ohr-Geräte (IdO) oder besonders kleine Hinter-dem-Ohr-Geräte (HdO) mit dünnem Schlauch.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <label for="faq-6" class="faq-question">
+                        Was kann ich gegen Tinnitus tun?
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </label>
+                    <input type="checkbox" id="faq-6" class="faq-toggle">
+                    <div class="faq-answer">
+                        <p>Bei Tinnitus gibt es verschiedene Therapieansätze wie Tinnitus-Retraining-Therapie (TRT), Hörtherapie oder Entspannungstechniken. Unsere Tinnitus-Beraterin entwickelt mit Ihnen ein individuelles Konzept.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>Kontakt</h2>
+                <p>Wir sind für Sie da - vereinbaren Sie jetzt einen Termin oder kontaktieren Sie uns für Fragen.</p>
+            </div>
+            <div class="contact-content">
+                <div class="contact-form">
+                    <form action="#" method="POST">
+                        <div class="form-group">
+                            <label for="name">Ihr Name</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">E-Mail-Adresse</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Telefonnummer</label>
+                            <input type="tel" id="phone" name="phone">
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Ihre Nachricht</label>
+                            <textarea id="message" name="message" required></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary">Nachricht senden</button>
+                    </form>
+                </div>
+                <div class="contact-info">
+                    <h3>Audiomee Hörakustik</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Neuer Wall 10, 20354 Hamburg</p>
+                    <p><i class="fas fa-phone"></i> +49 (0)40 123 456 78</p>
+                    <p><i class="fas fa-envelope"></i> info@audiomee.de</p>
+                    <p><i class="fas fa-clock"></i> Öffnungszeiten:</p>
+                    <p>Mo-Fr: 09:00 - 18:00 Uhr</p>
+                    <p>Sa: 10:00 - 14:00 Uhr</p>
+                    <div class="map-placeholder">
+                        <i class="fas fa-map-marked-alt"></i> Google Maps wird hier angezeigt
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <a href="#" class="logo">
+                        <div class="logo-icon">
+                            <i class="fas fa-headphones"></i>
+                        </div>
+                        <span class="logo-text">Audiomee</span>
+                    </a>
+                    <p>Ihre Experten für Hörakustik in Hamburg. Seit über 20 Jahren für bestes Hören und mehr Lebensqualität.</p>
+                    <div class="footer-social">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#hero">Start</a></li>
+                        <li><a href="#services">Leistungen</a></li>
+                        <li><a href="#about">Über uns</a></li>
+                        <li><a href="#team">Team</a></li>
+                        <li><a href="#pricing">Preise</a></li>
+                        <li><a href="#gallery">Galerie</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Services</h3>
+                    <ul>
+                        <li><a href="#">Hörgeräte-Anpassung</a></li>
+                        <li><a href="#">Hörtests</a></li>
+                        <li><a href="#">Tinnitus-Beratung</a></li>
+                        <li><a href="#">Gehörschutz</a></li>
+                        <li><a href="#">Reparatur-Service</a></li>
+                        <li><a href="#">Nachsorge</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Kontakt</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> Neuer Wall 10, 20354 Hamburg</li>
+                        <li><i class="fas fa-phone"></i> +49 (0)40 123 456 78</li>
+                        <li><i class="fas fa-envelope"></i> info@audiomee.de</li>
+                        <li><i class="fas fa-clock"></i> Mo-Fr: 09:00 - 18:00</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Audiomee Hörakustik. Alle Rechte vorbehalten.</p>
+            </div>
+        </div>
+    </footer>
+
+    <a href="#" class="back-to-top">
+        <i class="fas fa-chevron-up"></i>
+    </a>
+
+    <script>
+        // Mobile Menu Toggle
+        const hamburger = document.querySelector('.hamburger-menu');
+        const mobileMenu = document.querySelector('.mobile-nav');
+        const mobileToggle = document.getElementById('mobile-menu-toggle');
+
+        hamburger.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+            mobileToggle.checked = mobileMenu.classList.contains('active');
+        });
+
+        document.querySelector('.mobile-nav-close').addEventListener('click', () => {
+            mobileMenu.classList.remove('active');
+            mobileToggle.checked = false;
+        });
+
+        // Sticky Header
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Back to Top Button
+        const backToTop = document.querySelector('.back-to-top');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        backToTop.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // FAQ Accordion
+        const faqItems = document.querySelectorAll('.faq-item');
+        faqItems.forEach(item => {
+            const toggle = item.querySelector('.faq-toggle');
+            toggle.addEventListener('change', () => {
+                item.classList.toggle('active');
+            });
+        });
+
+        // Smooth Scroll for Anchor Links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+                // Close mobile menu if open
+                mobileMenu.classList.remove('active');
+                mobileToggle.checked = false;
+            });
+        });
+    </script>
+
+<div id="wz-banner" style="position:fixed;bottom:0;left:0;right:0;background:linear-gradient(135deg,#1a365d,#2563eb);color:#fff;padding:20px;text-align:center;z-index:99999;box-shadow:0 -4px 20px rgba(0,0,0,.3);font-family:sans-serif">
+  <div style="max-width:1200px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:20px">
+    <div style="flex:1;min-width:280px">
+      <p style="margin:0;font-size:18px;font-weight:600">Gefällt Ihnen diese Demo?</p>
+      <p style="margin:5px 0 0;font-size:14px;opacity:.9">Erstellt von <strong>WZ Vision</strong></p>
+    </div>
+    <div style="display:flex;gap:12px">
+      <a href="mailto:info@wzvision.de?subject=Interesse%20Webseite%20Audiomee" style="padding:12px 28px;background:#fff;color:#1a365d;text-decoration:none;border-radius:8px;font-weight:600">Kontakt</a>
+      <a href="https://wzvision.de" target="_blank" style="padding:12px 28px;background:transparent;color:#fff;text-decoration:none;border-radius:8px;font-weight:600;border:2px solid #fff">Mehr</a>
+    </div>
+  </div>
+  <p style="margin:15px 0 0;font-size:12px;opacity:.7">Demo bis 8.1.2026 | info@wzvision.de</p>
+</div>
+<div style="height:140px"></div>
+</body>
+</html>
